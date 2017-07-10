@@ -5,8 +5,11 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 EmployeeProvider = function(host, port) {
-  this.db= new Db('node-mongo-employee', new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
-  this.db.open(function(){});
+var mongoClient = new MongoClient(new Server(host, port));
+mongoClient.open(function(err,mongoClient){
+this.db = mongoClient.db("node-mongo-employee");
+this.db.open(function(){})
+});
 };
 
 
